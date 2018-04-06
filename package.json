@@ -1,0 +1,29 @@
+{
+  "name": "node-express-sprint-challenge",
+  "version": "0.0.1",
+  "description": "Node Sprint Challenge",
+  "private": true,
+  "main": "server.js",
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.8.0"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap": "^4.0.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "knex": "^0.14.4",
+    "morgan": "^1.9.0",
+    "react-router-dom": "^4.2.2",
+    "sqlite3": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}
