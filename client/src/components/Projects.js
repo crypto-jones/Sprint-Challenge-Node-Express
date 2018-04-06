@@ -26,9 +26,10 @@ export default class ListView extends Component {
     let filterposts = this.state.projects.filter(project => {
       if (
         project.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !==
-        -1
-        // || post.userId.toLowerCase().indexOf(this.state.search.toLowerCase()) !==
-        //   -1
+          -1 ||
+        project.description
+          .toLowerCase()
+          .indexOf(this.state.search.toLowerCase()) !== -1
       ) {
         return true;
       }
@@ -95,15 +96,16 @@ export default class ListView extends Component {
                   className="card"
                 >
                   <div className="card-block">
-                    <h5 className="card-title">{project.name}</h5>
+                    <h3 className="card-title">{project.name}</h3>
+                    <h5>{project.description}</h5>
                     {this.state.actions.map(action => {
-                      // if (action.id === project.project_id) {
-                      return (
-                        <div className="text-truncate card-text">
-                          <li>{action.description}</li>
-                        </div>
-                      );
-                      // }
+                      if (action.project_id === project.id) {
+                        return (
+                          <div className="text-truncate card-text">
+                            <li>{action.description}</li>
+                          </div>
+                        );
+                      }
                     })}
                   </div>
                 </Link>

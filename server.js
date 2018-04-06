@@ -3,8 +3,8 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 
-const actionRouter = require('./users/actionRoutes.js');
-const projectRouter = require('./users/projectRoutes.js');
+const actionRouter = require('./projects/actionRoutes.js');
+const projectRouter = require('./projects/projectRoutes.js');
 
 const server = express();
 

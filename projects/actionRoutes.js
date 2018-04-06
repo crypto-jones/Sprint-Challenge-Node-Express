@@ -2,38 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 
-const db = require('../data/helpers/projectModel.js');
+const db = require('../data/helpers/actionModel.js');
 
-// READ projects
+// READ actions
 router.get('/', (req, res) => {
   db
     .get()
-    .then(projects => {
-      res.status(200).json(projects);
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    });
-});
-
-// READ project by ID
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  db
-    .get(id)
-    .then(projects => {
-      res.status(200).json(projects);
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    });
-});
-
-// READ project actions
-router.get('/:id/actions', (req, res) => {
-  const { id } = req.params;
-  db
-    .getProjectActions(id)
     .then(actions => {
       res.status(200).json(actions);
     })
@@ -42,14 +16,27 @@ router.get('/:id/actions', (req, res) => {
     });
 });
 
-// CREATE project
-router.post('/', (req, res) => {
-  const project = req.body;
+// READ action by ID
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
   db
-    .insert(project)
-    .then(projects => {
+    .get(id)
+    .then(actions => {
+      res.status(200).json(actions);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
+// CREATE action
+router.post('/', (req, res) => {
+  const action = req.body;
+  db
+    .insert(action)
+    .then(actions => {
       console.log('ok');
-      res.status(201).json(projects);
+      res.status(201).json(actions);
     })
     .catch(error => {
       console.log('error');
@@ -57,21 +44,19 @@ router.post('/', (req, res) => {
     });
 });
 
-// UPDATE project
+// UPDATE action
 router.put('/:id', (req, res) => {
   const { id } = req.params;
   const changes = req.body;
   db
     .update(id, changes)
     .then(count => {
-      if (count > 0) {
+      if (count != null) {
         db.get(id).then(changes => {
           res.status(200).json(changes);
         });
       } else {
-        res.status(404).json({
-          message: 'The project with the specified ID does not exist.'
-        });
+        res.status(404).json({ message: 'The action could not be updated' });
       }
     })
     .catch(error => {
@@ -79,7 +64,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-// DELETE project
+// DELETE action
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   console.log(id);
